@@ -35,7 +35,7 @@ request needs to be urlencoded
     "userid": "123"
 }
 
-### Authenticating Other Endpoints
+### Authenticating Other Endpoints [POST]
 To authenticate _any_ other endpoints you'll need to submit this in the body
 
 + Parameters
@@ -55,7 +55,7 @@ To authenticate _any_ other endpoints you'll need to submit this in the body
 ## Sections [/api.php?action=getSectionConfig]
 
 ### Get Sections Config [POST]
-    
+
 + Response 200 (application/json)
 
         {
@@ -90,47 +90,81 @@ To authenticate _any_ other endpoints you'll need to submit this in the body
             },
             "124":{}
         }
-        
-## Members
 
-### Get Member List [POST https://osm.scouts.org.nz/ext/members/contact/?action=getListOfMembers&sectionid={}&termid={}&section={}]
 
-### Get Member Information [POST https://osm.scouts.org.nz/ext/members/contact/?action=getIndividual&sectionid={}&scoutid={}&termid={}&context=members]]
+## Members [/ext/members/contact/]
+
+### Get Member List [POST /ext/members/contact/?action=getListOfMembers&sectionid={}&termid={}&section={}]
 
 + Response 200 (application/json)
 
-    {
-    "ok": true,
-    "read_only": [],
-    "data": {
-        "scoutid": "12345",
-        "firstname": "First",
-        "lastname": "Last",
-        "photo_guid": "12345678-1234-4567-5678-1234567890ab",
-        "email1": "",
-        "phone1": "",
-        "address": "",
-        "address2": "",
-        "dob": "1987-08-05",
-        "started": "2004-08-31",
-        "joining_in_yrs": "2",
-        "parents": "",
-        "notes": "",
-        "medical": "",
-        "religion": "",
-        "school": "",
-        "ethnicity": "",
-        "subs": "",
-        "custom1": "",
-        "created_date": "0000-00-00 00:00:00",
-        "patrolid": "0",
-        "patrolleader": "0",
-        "startedsection": "2015-06-15",
-        "enddate": null,
-        "age": "20 years and 1 months",
-        "meetings": -1,
-        "others": [
-            "Another Group: Leaders"
-        ]
-    }
-}
+        {
+            "identifier": "scoutid",
+            "photos": true,
+            "items": [
+                {
+                    "firstname": "John",
+                    "lastname": "Doe",
+                    "photo_guid": "12345678-1234-4567-5678-1234567890ab",
+                    "patrolid": -1,
+                    "patrol": " ",
+                    "sectionid": 12,
+                    "enddate": null,
+                    "age": "24 / 4",
+                    "patrol_role_level_label": "Crew Leader",
+                    "active": true,
+                    "scoutid": 1233
+                },
+                {
+                    "firstname": "Jane",
+                    "lastname": "Doe",
+                    "photo_guid": "12345678-1234-4567-5678-1234567890ab",
+                    "patrolid": 0,
+                    "patrol": "",
+                    "sectionid": 12,
+                    "enddate": null,
+                    "age": "23 / 7",
+                    "patrol_role_level_label": "",
+                    "active": true,
+                    "scoutid": 1234
+                },
+
+### Get Member Information [POST /ext/members/contact/?action=getIndividual&sectionid={}&scoutid={}&termid={}&context=members]]
+
++ Response 200 (application/json)
+    
+        {
+            "ok": true,
+            "read_only": [],
+            "data": {
+                "scoutid": "12345",
+                "firstname": "First",
+                "lastname": "Last",
+                "photo_guid": "12345678-1234-4567-5678-1234567890ab",
+                "email1": "",
+                "phone1": "",
+                "address": "",
+                "address2": "",
+                "dob": "1987-08-05",
+                "started": "2004-08-31",
+                "joining_in_yrs": "2",
+                "parents": "",
+                "notes": "",
+                "medical": "",
+                "religion": "",
+                "school": "",
+                "ethnicity": "",
+                "subs": "",
+                "custom1": "",
+                "created_date": "0000-00-00 00:00:00",
+                "patrolid": "0",
+                "patrolleader": "0",
+                "startedsection": "2015-06-15",
+                "enddate": null,
+                "age": "20 years and 1 months",
+                "meetings": -1,
+                "others": [
+                    "Another Group: Leaders"
+                ]
+            }
+        }
