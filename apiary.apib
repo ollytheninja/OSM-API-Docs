@@ -35,9 +35,9 @@ request needs to be urlencoded
     "userid": "123"
 }
 
-## Sections [/api.php?action=getSectionConfig]
+### Authenticating Other Endpoints
+To authenticate _any_ other endpoints you'll need to submit this in the body
 
-### Get Sections Config [POST]
 + Parameters
 
     + token (string, required) - your OSM API token
@@ -51,6 +51,10 @@ request needs to be urlencoded
     password={password}&
     token={token}&
     apiid={apiid}
+
+## Sections [/api.php?action=getSectionConfig]
+
+### Get Sections Config [POST]
     
 + Response 200 (application/json)
 
@@ -86,3 +90,47 @@ request needs to be urlencoded
             },
             "124":{}
         }
+        
+## Members
+
+### Get Member List [POST https://osm.scouts.org.nz/ext/members/contact/?action=getListOfMembers&sectionid={}&termid={}&section={}]
+
+### Get Member Information [POST https://osm.scouts.org.nz/ext/members/contact/?action=getIndividual&sectionid={}&scoutid={}&termid={}&context=members]]
+
++ Response 200 (application/json)
+
+    {
+    "ok": true,
+    "read_only": [],
+    "data": {
+        "scoutid": "12345",
+        "firstname": "First",
+        "lastname": "Last",
+        "photo_guid": "12345678-1234-4567-5678-1234567890ab",
+        "email1": "",
+        "phone1": "",
+        "address": "",
+        "address2": "",
+        "dob": "1987-08-05",
+        "started": "2004-08-31",
+        "joining_in_yrs": "2",
+        "parents": "",
+        "notes": "",
+        "medical": "",
+        "religion": "",
+        "school": "",
+        "ethnicity": "",
+        "subs": "",
+        "custom1": "",
+        "created_date": "0000-00-00 00:00:00",
+        "patrolid": "0",
+        "patrolleader": "0",
+        "startedsection": "2015-06-15",
+        "enddate": null,
+        "age": "20 years and 1 months",
+        "meetings": -1,
+        "others": [
+            "Another Group: Leaders"
+        ]
+    }
+}
