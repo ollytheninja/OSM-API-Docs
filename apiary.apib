@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://www.onlinescoutmanager.co.uk/
+HOST: https://osm.scouts.org.nz/
 
 # Online Scout Manager
 
@@ -8,7 +8,7 @@ you can contribute by forking it on GitHub.
 
 ## Authorisation [/users.php?action=authorise]
 
-### Authorise [POST /users.php?action=authorise]
+### Authorise [POST]
 
 Note you need email and password the first time to authorise your application against your account, 
 after that you can use the usertoken.
@@ -19,15 +19,70 @@ request needs to be urlencoded
 
     + token (string, required) - your OSM API token
     + apiid (string, required) - your OSM API ID
-    + email (string, optional) - your OSM login email address
-    + password (string, optional) - your OSM login password
+    + email (string, required) - your OSM login email address
+    + password (string, required) - your OSM login password
     
 + Request (application/x-www-form-urlencoded)
     
-    email={email}&password={password}&token={token}&apiid={apiid}
+    email={email}&
+    password={password}&
+    token={token}&
+    apiid={apiid}
 
 + Response 200 (application/json)
 {
     "secret": "1234567890abcdef",
     "userid": "123"
 }
+
+## Sections [/api.php?action=getSectionConfig]
+
+### Get Sections Config [POST]
++ Parameters
+
+    + token (string, required) - your OSM API token
+    + apiid (string, required) - your OSM API ID
+    + secret (string, required) - secret from auth call
+    + userid (string, required) - userid from auth call
+    
++ Request (application/x-www-form-urlencoded)
+    
+    email={email}&
+    password={password}&
+    token={token}&
+    apiid={apiid}
+    
++ Response 200 (application/json)
+
+        {
+            "123": {
+                "numscouts": 999,
+                "subscription_level": 3,
+                "subscription_expires": "2050-12-31",
+                "portal": {
+                    "badges": 1,
+                    "programme": 1,
+                    "events": 1,
+                    "details": 1,
+                    "emailbolton": 1
+                },
+                "portalExpires": {
+                    "programme": "2050-12-31",
+                    "badges": "2050-12-31",
+                    "events": "2050-12-31",
+                    "details": "2050-12-31",
+                    "emailbolton": "2050-12-31",
+                    "badgesA": 0,
+                    "programmeA": 0,
+                    "eventsA": 0,
+                    "detailsA": 0,
+                    "emailboltonA": 0
+                },
+                "section_type": "nzadults",
+                "sectionType": "nzadults",
+                "parentSectionId": "0",
+                "hierarchy_lowest_level": "level_1",
+                "hierarchy_operating_level": "level_0"
+            },
+            "124":{}
+        }
