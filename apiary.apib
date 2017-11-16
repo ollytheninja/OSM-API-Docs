@@ -8,10 +8,12 @@ you can contribute by forking it on GitHub.
 
 ## Authorisation [/users.php?action=authorise]
 
-### Authorise [POST /users.php?action=authorise&email={email}&password={password}&token={token}&apiid={apiid}]
+### Authorise [POST /users.php?action=authorise]
 
-    Note you need email and password the first time to authorise your application against your account, 
-    after that you can use the usertoken.
+Note you need email and password the first time to authorise your application against your account, 
+after that you can use the usertoken.
+
+request needs to be urlencoded
 
 + Parameters
 
@@ -21,6 +23,13 @@ you can contribute by forking it on GitHub.
     + password (string, optional) - your OSM login password
     
 
+    
++ Request (application/x-www-form-urlencoded
+    
+    email={email}&password={password}&token={token}&apiid={apiid}
 
 + Response 200 (application/json)
-demo
+{
+    "secret": "1234567890abcdef",
+    "userid": "123"
+}
