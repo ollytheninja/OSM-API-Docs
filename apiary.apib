@@ -46,9 +46,7 @@ To authenticate _any_ other endpoints you'll need to submit this in the body
     + userid (string, required) - userid from auth call
     
 + Request (application/x-www-form-urlencoded)
-    
-    email={email}&
-    password={password}&
+
     token={token}&
     apiid={apiid}
 
@@ -167,6 +165,24 @@ To authenticate _any_ other endpoints you'll need to submit this in the body
                 "meetings": -1,
                 "others": [
                     "Another Group: Leaders"
-                ]
+                ]c
             }
         }
+        
+
+## Group Dashboard [/ext/dashboard/]
+
+### Send Email Across Group [POST /ext/dashboard/?action=sendGroupEmail]
+
++ Parameters
+    + from (email) - valid email address which is set as the 'reply to' of the email sent by OSM
+    + subject (string) - Subject of email
+    + body (HTML) - body of the email
+    + sections (int) - JSON array of sectionIDs to send the email to
+
++ Request (application/x-www-form-urlencoded)
+    
+    from={from}&
+    subject={subject}&
+    body={body}&
+    emails={sections}
