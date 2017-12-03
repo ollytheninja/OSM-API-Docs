@@ -124,9 +124,9 @@ Used to get a list of potentail sections. This is very useful for determining wh
             ]
         }
 
-### Terms [/ext/]
+## Terms [/ext/]
 
-## Get List of Terms [POST /api.php?action=getTerms]
+### Get List of Terms [POST /api.php?action=getTerms]
 Used to get a list of terms that you have access to.
 
 + Response 200 (application/json)
@@ -824,7 +824,250 @@ Gets the structure of the table which is laying out attendance data (including l
     ]
 
 
-## Group Dashboard [/ext/dashboard/]
+## Events [/ext/events]
+
+### Get List of Events [POST /ext/events/summary/?action=get&sectionid={}&termid={}]
++ Parameters
+    + sectionid (required, int) - Section that the events are being loaded from
+    + termid (required, int) - Term that the events are being loaded from
+
++ Response 200
+
+    {
+        "identifier": "eventid",
+        "items": [
+            {
+                "eventid": "681",
+                "name": "Place",
+                "date": "04/10/2015",
+                "startdate_g": "2015-10-04",
+                "startdate": "04/10/2015",
+                "enddate": "09/10/2015",
+                "starttime": null,
+                "endtime": null,
+                "cost": "98.00",
+                "location": "Cool Place",
+                "yes": 0,
+                "no": 0,
+                "reserved": 0,
+                "invited": 1,
+                "shown": 0,
+                "x": 21
+            }
+        ]
+    }
+
+### Get Event Attendance [POST /ext/events/event/?action=getAttendance&eventid={}&sectionid={}&termid={}]
++ Parameters
+    + eventid (required, int) - ID of the event
+    + sectionid (required, int) - ID of the section of the event
+    + termid (required, int) - ID of the term the event takes place
+    
++ Response 200
+    {
+        "identifier": "scoutid",
+        "eventid": "21952",
+        "items": [
+            {
+                "scoutid": "1051",
+                "attending": "Yes",
+                "payment": "Automatic",
+                "firstname": "Foo",
+                "lastname": "Bar",
+                "dob": "1000-06-26",
+                "patrolid": "0",
+                "sf_1": "Test",
+                "sf_2": "B"
+            },
+            {
+                "scoutid": "32250",
+                "attending": "Invited",
+                "payment": "Automatic",
+                "firstname": "Bar",
+                "lastname": "Foo",
+                "dob": "2100-09-05",
+                "patrolid": "0",
+                "sf_1": "",
+                "sf_2": ""
+            },
+            {
+                "scoutid": "37984",
+                "attending": "No",
+                "payment": "Automatic",
+                "firstname": "Blah",
+                "lastname": "Beep",
+                "dob": "9999-02-06",
+                "patrolid": "0",
+                "sf_1": "",
+                "sf_2": ""
+            }
+        ]
+    }
+
+### Get Event Structure [POST /ext/events/event/?action=getStructureForEvent&sectionid={}&eventid={}]
+Gets the structure of an event
++ Parameters
+    + eventid (required, int) - ID of the event
+    + sectionid (required, int) - ID of the section of the event
+
++ Response 200
+    {
+        "eventid": "21952",
+        "name": "Cub Camp",
+        "type": null,
+        "startdate": "2017-12-08",
+        "enddate": "2017-12-10",
+        "starttime": "17:00:00",
+        "endtime": "14:30:00",
+        "cost": "0.00",
+        "location": "Cool Scouty Place",
+        "notes": "",
+        "notepad": "",
+        "publicnotes": "Y'all should come to my very cool scouty thing",
+        "config": "[{\"id\":\"sf_1\",\"name\":\"Scout Group\",\"pL\":\"Scout Group\",\"pR\":\"1\",\"pub\":true},{\"id\":\"sf_2\",\"name\":\"Scout Section\",\"pL\":\"Scout Section (ie. Cubs, Leaders, Rovers)\",\"pR\":\"1\",\"pub\":true},{\"id\":\"sf_3\",\"name\":\"Allow Paracetamol\",\"pL\":\"Do you allow your child to be given Paracetamol if necessary?\",\"pR\":\"\",\"pub\":true},{\"id\":\"sf_4\",\"name\":\"Special Assistance Required\",\"pL\":\"Will you\\/your child require any assistance with activities?\",\"pR\":\"false\",\"pub\":true},{\"id\":\"sf_5\",\"name\":\"Dietary\\/Medical Requirements\",\"pL\":\"Do you\\/your child have an dietary or medical requirements?\",\"pR\":\"\",\"pub\":true},{\"id\":\"sf_6\",\"name\":\"Emergency Contact\",\"pL\":\"Emergency Contact Name and Phone Number\",\"pR\":\"1\",\"pub\":true},{\"id\":\"sf_8\",\"name\":\"Email\",\"pL\":\"Email address\",\"pR\":\"1\",\"pub\":true},{\"id\":\"sf_9\",\"name\":\"Photography\",\"pL\":\"Allow Photos Yes\\/No\",\"pR\":\"false\",\"pub\":true}]",
+        "extra": "{\"sharing\":{\"sharee\":true,\"maxlimit\":\"0\",\"limitleaders\":\"0\"}}",
+        "sectionid": "1878",
+        "googlecalendar": null,
+        "archived": "0",
+        "soft_deleted": "0",
+        "confdate": "2017-12-02",
+        "allowchanges": "1",
+        "disablereminders": "0",
+        "attendancelimit": "0",
+        "limitincludesleaders": "0",
+        "allowbooking": "1",
+        "attendancereminder": "3",
+        "_shared_event_confdate_lock_enabled": true,
+        "_shared_event_confdate_locked": true,
+        "_shared_event_details_locked": false,
+        "structure": [
+            {
+                "rows": [
+                    {
+                        "name": "First name",
+                        "field": "firstname",
+                        "width": "150px"
+                    },
+                    {
+                        "name": "Last name",
+                        "field": "lastname",
+                        "width": "150px"
+                    },
+                    {
+                        "name": "Attending",
+                        "field": "attending",
+                        "width": "170px",
+                        "editable": false,
+                        "type": "dojox.grid.cells.Select",
+                        "options": [
+                            "",
+                            "Show in My.SCOUT",
+                            "Invited",
+                            "Yes",
+                            "No",
+                            "Reserved"
+                        ]
+                    }
+                ],
+                "noscroll": true
+            },
+            {
+                "rows": [
+                    {
+                        "name": "Scout Group",
+                        "raw_name": "Scout Group",
+                        "field": "sf_1",
+                        "pL": "Scout Group",
+                        "pR": "1",
+                        "width": "150px",
+                        "editable": false,
+                        "pub": true
+                    },
+                    {
+                        "name": "Scout Section",
+                        "raw_name": "Scout Section",
+                        "field": "sf_2",
+                        "pL": "Scout Section (ie. Cubs, Leaders, Rovers)",
+                        "pR": "1",
+                        "width": "150px",
+                        "editable": false,
+                        "pub": true
+                    },
+                    {
+                        "name": "Allow Paracetamol",
+                        "raw_name": "Allow Paracetamol",
+                        "field": "sf_3",
+                        "pL": "Do you allow your child to be given Paracetamol if necessary?",
+                        "pR": "",
+                        "width": "150px",
+                        "editable": false,
+                        "pub": true
+                    },
+                    {
+                        "name": "Special Assistance Required",
+                        "raw_name": "Special Assistance Required",
+                        "field": "sf_4",
+                        "pL": "Will you/your child require any assistance with activities?",
+                        "pR": "false",
+                        "width": "150px",
+                        "editable": false,
+                        "pub": true
+                    },
+                    {
+                        "name": "Dietary/Medical Requirements",
+                        "raw_name": "Dietary/Medical Requirements",
+                        "field": "sf_5",
+                        "pL": "Do you/your child have an dietary or medical requirements?",
+                        "pR": "",
+                        "width": "150px",
+                        "editable": false,
+                        "pub": true
+                    },
+                    {
+                        "name": "Emergency Contact",
+                        "raw_name": "Emergency Contact",
+                        "field": "sf_6",
+                        "pL": "Emergency Contact Name and Phone Number",
+                        "pR": "1",
+                        "width": "150px",
+                        "editable": false,
+                        "pub": true
+                    },
+                    {
+                        "name": "Email",
+                        "raw_name": "Email",
+                        "field": "sf_8",
+                        "pL": "Email address",
+                        "pR": "1",
+                        "width": "150px",
+                        "editable": false,
+                        "pub": true
+                    },
+                    {
+                        "name": "Photography",
+                        "raw_name": "Photography",
+                        "field": "sf_9",
+                        "pL": "Allow Photos Yes/No",
+                        "pR": "false",
+                        "width": "150px",
+                        "editable": false,
+                        "pub": true
+                    },
+                    {
+                        "name": " ",
+                        "field": "info",
+                        "width": "10px",
+                        "formatter": "historyFormatter"
+                    }
+                ]
+            }
+        ],
+        "badgelinks": [],
+        "equipment": false,
+        "_past_event_read_only": false
+    }
+
+## Group Dashboard [/ext/dashboard]
 
 ### Send Email Across Group [POST /ext/dashboard/?action=sendGroupEmail]
 
