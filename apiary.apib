@@ -690,7 +690,139 @@ Used to get flexible 'additional data' tables, such as Contact Details, Doctor's
       "group_name": "Pretty Cool Scout Group",
       "section_name": "Scouts"
     }
-    }  
+    } 
+
+
+### Get Attendance Data [POST /ext/members/attendance/?action=get&sectionid={}&termid={}]
+Used to get a list of attendance for programme events
+
++ Parameters
+    + sectionid (required, int) - Section of which you would like to view attendance
+    + termid (required, int) - Term in the section that you would like to view attendance
+
++ Response 200
+    {
+        "identifier": "scoutid",
+        "label": "name",
+        "items": [
+        {
+            "2017-10-17": "Yes",
+            "total": 5,
+            "2017-10-24": "Yes",
+            "2017-10-31": "Yes",
+            "2017-11-07": "Yes",
+            "2017-11-14": "Yes",
+            "firstname": "Jim ",
+            "lastname": "Bob",
+            "photo_guid": "",
+            "patrolid": -2,
+            "patrolleader": "0",
+            "patrol": "Leaders",
+            "dob": "1901-02-22",
+            "sectionid": 1478,
+            "enddate": null,
+            "age": "212 / 10",
+            "patrol_role_level_label": "",
+            "active": true,
+            "scoutid": 666
+        },
+        {
+            "2017-10-17": "Yes",
+            "total": 3,
+            "2017-10-24": "Yes",
+            "2017-10-31": "Yes",
+            "2017-11-07": "No",
+            "2017-11-14": "No",
+            "firstname": "Jack",
+            "lastname": "Dick",
+            "photo_guid": "",
+            "patrolid": 0,
+            "patrolleader": "0",
+            "patrol": "Default",
+            "dob": "2020-02-10",
+            "sectionid": 1478,
+            "enddate": null,
+            "age": "15 / 01",
+            "patrol_role_level_label": "",
+            "active": true,
+            "scoutid": 31315
+        }
+    ]
+}
+
+### Get Attendance Structure [POST /ext/members/attendance/?action=structure&sectionid={}&termid={}]
+Gets the structure of the table which is laying out attendance data (including labels etc)
+
++ Parameters
+    + sectionid (required, int) - Section of which you would like to view attendance
+    + termid (required, int) - Term in the section that you would like to view attendance
+
++ Response 200
+    [
+        {
+            "rows": [
+                {
+                    "name": "First name",
+                    "field": "firstname",
+                    "width": "100px",
+                    "formatter": "registerBoldFormatter"
+                },
+                {
+                    "name": "Last name",
+                    "field": "lastname",
+                    "width": "100px",
+                    "formatter": "registerBoldFormatter"
+                },
+                {
+                    "name": "Total",
+                    "field": "total",
+                    "width": "60px",
+                    "formatter": "registerBoldFormatter"
+                }
+            ],
+            "noscroll": true
+        },
+        {
+            "rows": [
+                {
+                    "name": "2017-10-17",
+                    "field": "2017-10-17",
+                    "formatter": "doneFormatter",
+                    "width": "110px",
+                    "tooltip": "EventA"
+                },
+                {
+                    "name": "2017-10-24",
+                    "field": "2017-10-24",
+                    "formatter": "doneFormatter",
+                    "width": "110px",
+                    "tooltip": "EventB"
+                },
+                {
+                    "name": "2017-10-31",
+                    "field": "2017-10-31",
+                    "formatter": "doneFormatter",
+                    "width": "110px",
+                    "tooltip": "EventC"
+                },
+                {
+                    "name": "2017-11-07",
+                    "field": "2017-11-07",
+                    "formatter": "doneFormatter",
+                    "width": "110px",
+                    "tooltip": "EventD"
+                },
+                {
+                    "name": "2017-11-14",
+                    "field": "2017-11-14",
+                    "formatter": "doneFormatter",
+                    "width": "110px",
+                    "tooltip": "EventE"
+                }
+            ]
+        }
+    ]
+
 
 ## Group Dashboard [/ext/dashboard/]
 
