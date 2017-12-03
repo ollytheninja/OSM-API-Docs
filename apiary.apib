@@ -24,16 +24,17 @@ request needs to be urlencoded
     
 + Request (application/x-www-form-urlencoded)
     
-    email={email}&
-    password={password}&
-    token={token}&
-    apiid={apiid}
+        email={email}&
+        password={password}&
+        token={token}&
+        apiid={apiid}
 
 + Response 200 (application/json)
-{
-    "secret": "1234567890abcdef",
-    "userid": "123"
-}
+        
+        {
+            "secret": "1234567890abcdef",
+            "userid": "123"
+        }
 
 ### Authenticating Other Endpoints [POST]
 To authenticate _any_ other endpoints you'll need to submit this in the body
@@ -47,8 +48,10 @@ To authenticate _any_ other endpoints you'll need to submit this in the body
     
 + Request (application/x-www-form-urlencoded)
 
-    token={token}&
-    apiid={apiid}
+        token={token}&
+        apiid={apiid}&
+        userid={userid}&
+        secret={secret}
 
 ## Sections [/api.php?action=getSectionConfig]
 
@@ -94,10 +97,11 @@ Used to get the OSM configuration for a specific section
 Used to get a list of potentail sections. This is very useful for determining where a member should be transferred to, or where an event can be shared to.
 
 + Parameters
-    + Section (String) - optional. filters the result down by a specific section.
+    + section (string, optional) - filters the result down by a specific section.
     
-+ Request
-    &section=
++ Request (application/x-www-form-urlencoded)
+        
+        &section=
 
 + Response 200 (application/json)
 
@@ -131,50 +135,54 @@ Used to get a list of terms that you have access to.
 
 + Response 200 (application/json)
 
-    {
-        "455": [
-            {
-            "termid": "8986",
-            "sectionid": "1478",
-            "name": "2017 - Term 1",
-            "startdate": "2017-01-01",
-            "enddate": "2017-04-30",
-            "master_term": null,
-            "past": true
-            },
-            {
-            "termid": "10441",
-            "sectionid": "1478",
-            "name": "2017 - Term 2",
-            "startdate": "2017-05-01",
-            "enddate": "2017-07-23",
-            "master_term": null,
-            "past": true
-            },
-            {
-            "termid": "10442",
-            "sectionid": "1478",
-            "name": "2017 - Term 3",
-            "startdate": "2017-07-24",
-            "enddate": "2017-10-08",
-            "master_term": null,
-            "past": true
-            },
-            {
-            "termid": "10443",
-            "sectionid": "1478",
-            "name": "2017 - Term 4",
-            "startdate": "2017-10-09",
-            "enddate": "2018-01-28",
-            "master_term": null,
-            "past": true
-            }
-        ]
-    }
+        {
+            "455": [
+                {
+                "termid": "8986",
+                "sectionid": "1478",
+                "name": "2017 - Term 1",
+                "startdate": "2017-01-01",
+                "enddate": "2017-04-30",
+                "master_term": null,
+                "past": true
+                },
+                {
+                "termid": "10441",
+                "sectionid": "1478",
+                "name": "2017 - Term 2",
+                "startdate": "2017-05-01",
+                "enddate": "2017-07-23",
+                "master_term": null,
+                "past": true
+                },
+                {
+                "termid": "10442",
+                "sectionid": "1478",
+                "name": "2017 - Term 3",
+                "startdate": "2017-07-24",
+                "enddate": "2017-10-08",
+                "master_term": null,
+                "past": true
+                },
+                {
+                "termid": "10443",
+                "sectionid": "1478",
+                "name": "2017 - Term 4",
+                "startdate": "2017-10-09",
+                "enddate": "2018-01-28",
+                "master_term": null,
+                "past": true
+                }
+            ]
+        }
 
 ## Members [/ext/members/contact/]
 
-### Get Member List [POST /ext/members/contact/?action=getListOfMembers&sectionid={}&termid={}&section={}]
+### Get Member List [POST /ext/members/contact/?action=getListOfMembers&sectionid={}&termid={}]
+
++ Parameters
+    + sectionid (required, int)
+    + termid (required, int)
 
 + Response 200 (application/json)
 
@@ -263,7 +271,9 @@ Used to get a list of terms that you have access to.
 
 + Request (application/x-www-form-urlencoded)
     
-    from={from}&
-    subject={subject}&
-    body={body}&
-    emails={sections}
+        from={from}&
+        subject={subject}&
+        body={body}&
+        emails={sections}
+        
++ Response
