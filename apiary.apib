@@ -1121,6 +1121,34 @@ Gets the structure of the table which is laying out attendance data (including l
 
 + Response 200
     {"ok":true}
+    
+## Go Cardless Payments [/ext/finances/onlinepayments]
+
+### Get List of GC Payment Schedules [POST /ext/events/onlinepayments/action=getSchemes]
+Used to get a list of payment schedules (per section) that you have access to.
+
++ Parameters
+
++ Request (application/x-www-form-urlencoded)
+    sectionid: (required,int) - The section ID you want the schedules for.
+
++ Response 200 (application/json)
+
+    {
+        "identifier": "schemeid",
+        "label": "name",
+        "has_accounts": true,
+        "items": [
+            {
+                "schemeid": "9904",
+                "name": "Beaver Subs"
+            },
+            {
+                "schemeid": "11895",
+                "name": "Beaver Events"
+            }
+        ]
+    }
 
 ## Group Dashboard [/ext/dashboard]
 
