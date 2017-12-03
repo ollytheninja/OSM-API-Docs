@@ -905,7 +905,6 @@ Gets the structure of the table which is laying out attendance data (including l
     }
 
 ### Get Event Structure [POST /ext/events/event/?action=getStructureForEvent&sectionid={}&eventid={}]
-Gets the structure of an event
 + Parameters
     + eventid (required, int) - ID of the event
     + sectionid (required, int) - ID of the section of the event
@@ -1066,6 +1065,62 @@ Gets the structure of an event
         "equipment": false,
         "_past_event_read_only": false
     }
+
+### Create Event [POST /ext/events/event/?action=add&sectionid={}]
++ Parameters
+    + sectionid (required, int) - Section to put the event into
+    
++ Request (application/x-www-form-urlencoded)
+    name=Cool Scouty event
+    &location=Cool Scouty Location
+    &startdate=2017-12-08
+    &starttime=12:00:00
+    &enddate=2017-12-08
+    &endtime=12:00:00
+    &attendancelimit=0
+    &limitincludesleaders=false
+    &cost=''
+    &tbc='no'
+    &confdate=2017-12-08
+    &allowchanges=false
+    &disablereminders=true
+    &allowbooking=true
+    &attendancereminder=0
+    &notes=''
+    
++ Response 200
+    {
+        "id": 22418,
+        "status": true,
+        "error": null,
+        "data": {
+            "id": 22418
+        },
+        "meta": []
+    }
+
+### Save Notepad [POST /ext/events/event/?action=saveNotepad&sectionid={}]
++ Parameters
+    + sectionid (required, int) - Section in which the event lies
+
++ Request (application/x-www-form-urlencoded)
+    eventid=22418
+    &notepad=<p>notepad stuff!</p>
+
++ Response 200
+    {"ok":true}
+
+    
+### Save My.Scout Details [POST /ext/events/event/?action=saveNotepad&sectionid={}]
++ Parameters
+    + sectionid (required, int) - Section in which the event lies
+    
++ Request (application/x-www-form-urlencoded)
+    eventid=22418
+    &pnnotepad=<p>my.scout stuff!</p>
+
++ Response 200
+    {"ok":true}
 
 ## Group Dashboard [/ext/dashboard]
 
