@@ -46,15 +46,14 @@ To authenticate _any_ other endpoints you'll need to submit this in the body
     + userid (string, required) - userid from auth call
     
 + Request (application/x-www-form-urlencoded)
-    
-    email={email}&
-    password={password}&
+
     token={token}&
     apiid={apiid}
 
 ## Sections [/api.php?action=getSectionConfig]
 
 ### Get Sections Config [POST]
+Used to get the OSM configuration for a specific section
 
 + Response 200 (application/json)
 
@@ -91,6 +90,87 @@ To authenticate _any_ other endpoints you'll need to submit this in the body
             "124":{}
         }
 
+### Get List of Sections (Nationally) [POST /ext/members/sectionplanning/?action=listSections]
+Used to get a list of potentail sections. This is very useful for determining where a member should be transferred to, or where an event can be shared to.
+
++ Parameters
+    + Section (String) - optional. filters the result down by a specific section.
+    
++ Request
+    &section=
+
++ Response 200 (application/json)
+
+        {
+            "identifier": "sectionid",
+            "label": "name",
+            "items": [
+                {
+                    "name": "NZ Test: Rovers",
+                    "sectionid": "8"
+                },
+                {
+                    "name": "Avon Cosgrove Rovers: Rovers",
+                    "sectionid": "1007"
+                },
+                {
+                    "name": "Bays Rover Crew: Rovers",
+                    "sectionid": "1029"
+                },
+                {
+                    "name": "Crew Otago Rover: Rovers",
+                    "sectionid": "1110"
+                }
+            ]
+        }
+
+### Terms [/ext/]
+
+## Get List of Terms [POST /api.php?action=getTerms]
+Used to get a list of terms that you have access to.
+
++ Response 200 (application/json)
+
+    {
+        "455": [
+            {
+            "termid": "8986",
+            "sectionid": "1478",
+            "name": "2017 - Term 1",
+            "startdate": "2017-01-01",
+            "enddate": "2017-04-30",
+            "master_term": null,
+            "past": true
+            },
+            {
+            "termid": "10441",
+            "sectionid": "1478",
+            "name": "2017 - Term 2",
+            "startdate": "2017-05-01",
+            "enddate": "2017-07-23",
+            "master_term": null,
+            "past": true
+            },
+            {
+            "termid": "10442",
+            "sectionid": "1478",
+            "name": "2017 - Term 3",
+            "startdate": "2017-07-24",
+            "enddate": "2017-10-08",
+            "master_term": null,
+            "past": true
+            },
+            {
+            "termid": "10443",
+            "sectionid": "1478",
+            "name": "2017 - Term 4",
+            "startdate": "2017-10-09",
+            "enddate": "2018-01-28",
+            "master_term": null,
+            "past": true
+            }
+        ]
+    }
 
 ## Members [/ext/members/contact/]
 
@@ -170,3 +250,20 @@ To authenticate _any_ other endpoints you'll need to submit this in the body
                 ]
             }
         }
+
+## Group Dashboard [/ext/dashboard/]
+
+### Send Email Across Group [POST /ext/dashboard/?action=sendGroupEmail]
+
++ Parameters
+    + from (email) - valid email address which is set as the 'reply to' of the email sent by OSM
+    + subject (string) - Subject of email
+    + body (HTML) - body of the email
+    + sections (int) - JSON array of sectionIDs to send the email to
+
++ Request (application/x-www-form-urlencoded)
+    
+    from={from}&
+    subject={subject}&
+    body={body}&
+    emails={sections}
