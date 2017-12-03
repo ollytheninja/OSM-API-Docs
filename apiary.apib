@@ -165,10 +165,56 @@ To authenticate _any_ other endpoints you'll need to submit this in the body
                 "meetings": -1,
                 "others": [
                     "Another Group: Leaders"
-                ]c
+                ]
             }
         }
         
+### Terms [/ext/]
+
+## Get List of Terms [POST /api.php?action=getTerms]
+
++ Response 200 (application/json)
+
+    {
+        "455": [
+            {
+            "termid": "8986",
+            "sectionid": "1478",
+            "name": "2017 - Term 1",
+            "startdate": "2017-01-01",
+            "enddate": "2017-04-30",
+            "master_term": null,
+            "past": true
+            },
+            {
+            "termid": "10441",
+            "sectionid": "1478",
+            "name": "2017 - Term 2",
+            "startdate": "2017-05-01",
+            "enddate": "2017-07-23",
+            "master_term": null,
+            "past": true
+            },
+            {
+            "termid": "10442",
+            "sectionid": "1478",
+            "name": "2017 - Term 3",
+            "startdate": "2017-07-24",
+            "enddate": "2017-10-08",
+            "master_term": null,
+            "past": true
+            },
+            {
+            "termid": "10443",
+            "sectionid": "1478",
+            "name": "2017 - Term 4",
+            "startdate": "2017-10-09",
+            "enddate": "2018-01-28",
+            "master_term": null,
+            "past": true
+            }
+        ]
+    }
 
 ## Group Dashboard [/ext/dashboard/]
 
