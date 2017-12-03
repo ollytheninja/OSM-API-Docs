@@ -93,15 +93,11 @@ Used to get the OSM configuration for a specific section
             "124":{}
         }
 
-### Get List of Sections (Nationally) [POST /ext/members/sectionplanning/?action=listSections]
+### Get List of Sections (Nationally) [POST /ext/members/sectionplanning/?action=listSections&section={}]
 Used to get a list of potentail sections. This is very useful for determining where a member should be transferred to, or where an event can be shared to.
 
 + Parameters
     + section (string, optional) - filters the result down by a specific section.
-    
-+ Request (application/x-www-form-urlencoded)
-        
-        &section=
 
 + Response 200 (application/json)
 
@@ -179,6 +175,7 @@ Used to get a list of terms that you have access to.
 ## Members [/ext/members/contact/]
 
 ### Get Member List [POST /ext/members/contact/?action=getListOfMembers&sectionid={}&termid={}]
+Used to get a list of members in a section and term, and basic details about each member (name, dob, patrol etc)
 
 + Parameters
     + sectionid (required, int)
@@ -220,54 +217,490 @@ Used to get a list of terms that you have access to.
         }
 
 ### Get Member Information [POST /ext/members/contact/?action=getIndividual&sectionid={}&scoutid={}&termid={}&context=members]]
+Gets a detailed list of user data for each member. 
 
++ Parameters
+    + sectionid (required, int) - ID of a section which this member is in
+    + scoutid (required, int) - OSM ID of the member
+    + termid (required, int) - ID of a term which this member is in
+    
 + Response 200 (application/json)
     
-        {
-            "ok": true,
-            "read_only": [],
-            "data": {
-                "scoutid": "12345",
-                "firstname": "First",
-                "lastname": "Last",
-                "photo_guid": "12345678-1234-4567-5678-1234567890ab",
-                "email1": "",
-                "phone1": "",
-                "address": "",
-                "address2": "",
-                "dob": "1987-08-05",
-                "started": "2004-08-31",
-                "joining_in_yrs": "2",
-                "parents": "",
-                "notes": "",
-                "medical": "",
-                "religion": "",
-                "school": "",
-                "ethnicity": "",
-                "subs": "",
-                "custom1": "",
-                "created_date": "0000-00-00 00:00:00",
-                "patrolid": "0",
-                "patrolleader": "0",
-                "startedsection": "2015-06-15",
-                "enddate": null,
-                "age": "20 years and 1 months",
-                "meetings": -1,
-                "others": [
-                    "Another Group: Leaders"
-                ]
-            }
+    {
+        "ok": true,
+        "read_only": [],
+        "data": {
+            "scoutid": "12345",
+            "firstname": "First",
+            "lastname": "Last",
+            "photo_guid": "12345678-1234-4567-5678-1234567890ab",
+            "email1": "",
+            "phone1": "",
+            "address": "",
+            "address2": "",
+            "dob": "1987-08-05",
+            "started": "2004-08-31",
+            "joining_in_yrs": "2",
+            "parents": "",
+            "notes": "",
+            "medical": "",
+            "religion": "",
+            "school": "",
+            "ethnicity": "",
+            "subs": "",
+            "custom1": "",
+            "created_date": "0000-00-00 00:00:00",
+            "patrolid": "0",
+            "patrolleader": "0",
+            "startedsection": "2015-06-15",
+            "enddate": null,
+            "age": "20 years and 1 months",
+            "meetings": -1,
+            "others": [
+                "Another Group: Leaders"
+            ]
         }
+    }
+    
+### Get Additional Data [POST /ext/customdata/?action=getData&sectionid={}]
+Used to get flexible 'additional data' tables, such as Contact Details, Doctor's Surgery etc
+
++ Parameters
++ sectionid (reqired, int) - Section ID of the member to get additional data from
++ userid (required, int) - User to get additional data about
+
++ Request (application/x-www-form-urlencoded)
+    associated_id={userid},
+    &associated_type=member,
+    &context=members,
+    &group_order=section
+    
++ Response 200
+    {
+    "status": true,
+    "error": null,
+    "data": [
+      {
+         "group_id": 1,
+         "config": {
+            "panel_height": 440
+         },
+         "group_type": "grouped",
+         "identifier": "contact_primary_1",
+         "name": "Primary Contact 1",
+         "description": "",
+         "is_considered_core": "yes",
+         "allow_new_columns": "yes",
+         "display": "always",
+         "columns": [
+            {
+               "column_id": 9,
+               "type": "text",
+               "required": "yes",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "first_name",
+               "label": "First Name",
+               "value": "Terry",
+               "is_core": "yes",
+               "order": "1",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "First Name"
+            },
+            {
+               "column_id": 10,
+               "type": "text",
+               "required": "yes",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "last_name",
+               "label": "Last Name",
+               "value": "Test",
+               "is_core": "yes",
+               "order": "2",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Last Name"
+            },
+            {
+               "column_id": 49,
+               "type": "checkbox",
+               "required": "no",
+               "display_in_advanced_view": "no",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "yes",
+               "config": {
+                  "display": "right"
+               },
+               "varname": "parent_exguide",
+               "label": "Previously has been a scout/guide?",
+               "value": "yes",
+               "is_core": "yes",
+               "order": "3",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Previously has been a scout/guide?"
+            },
+            {
+               "column_id": 1,
+               "type": "text",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "line_1",
+               "label": "Address 1",
+               "value": "123 Fake St",
+               "is_core": "yes",
+               "order": "40",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Address 1"
+            },
+            {
+               "column_id": 2,
+               "type": "text",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "line_2",
+               "label": "Address 2",
+               "value": "Fake Suburb",
+               "is_core": "yes",
+               "order": "41",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Address 2"
+            },
+            {
+               "column_id": 3,
+               "type": "text",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "line_3",
+               "label": "Address 3",
+               "value": "FakeTown",
+               "is_core": "yes",
+               "order": "42",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Address 3"
+            },
+            {
+               "column_id": 4,
+               "type": "text",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "postcode",
+               "label": "Postcode",
+               "value": "1234",
+               "is_core": "yes",
+               "order": "43",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Postcode"
+            },
+            {
+               "column_id": 6,
+               "type": "text",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "mobile_phone",
+               "label": "Mobile Phone",
+               "value": "1234567890",
+               "is_core": "yes",
+               "order": "50",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Mobile Phone"
+            },
+            {
+               "column_id": 50,
+               "type": "checkbox",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "yes",
+               "config": {
+                  "display": "right"
+               },
+               "varname": "mobile_sms",
+               "label": "Receive text messages from Leaders?",
+               "value": "yes",
+               "is_core": "yes",
+               "order": "52",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Receive text messages from Leaders?"
+            },
+            {
+               "column_id": 8,
+               "type": "text",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "home_phone",
+               "label": "Home Phone",
+               "value": "123456789012",
+               "is_core": "yes",
+               "order": "55",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Home Phone"
+            },
+            {
+               "column_id": 11,
+               "type": "email",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "email1",
+               "label": "Email 1",
+               "value": "foo@bar.com",
+               "is_core": "yes",
+               "order": "70",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Email 1"
+            },
+            {
+               "column_id": 13,
+               "type": "checkbox",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "yes",
+               "config": {
+                  "display": "right"
+               },
+               "varname": "email1_leaders",
+               "label": "Receive emails from Leaders?",
+               "value": "no",
+               "is_core": "yes",
+               "order": "80",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Receive emails from Leaders?"
+            },
+            {
+               "column_id": 26,
+               "type": "checkbox",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "yes",
+               "config": {
+                  "display": "right"
+               },
+               "varname": "email1_national_office",
+               "label": "Receive emails from National Office?",
+               "value": "no",
+               "is_core": "yes",
+               "order": "85",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Receive emails from National Office?"
+            },
+            {
+               "column_id": 14,
+               "type": "email",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "email2",
+               "label": "Email 2",
+               "value": "",
+               "is_core": "yes",
+               "order": "90",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Email 2"
+            },
+            {
+               "column_id": 16,
+               "type": "checkbox",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "yes",
+               "config": {
+                  "display": "right"
+               },
+               "varname": "email2_leaders",
+               "label": "Receive emails from Leaders?",
+               "value": "no",
+               "is_core": "yes",
+               "order": "100",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Receive emails from Leaders?"
+            },
+            {
+               "column_id": 376,
+               "type": "last_updated_by_name",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "yes",
+               "config": [],
+               "varname": "cf_last_updated_by",
+               "label": "Last Updated",
+               "value": "Person",
+               "is_core": "yes",
+               "order": "100",
+               "force_read_only": "yes",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Person"
+            },
+            {
+               "column_id": 377,
+               "type": "last_updated",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "yes",
+               "config": [],
+               "varname": "cf_last_updated_time",
+               "label": "Time",
+               "value": "2017-11-17 14:45:49",
+               "is_core": "yes",
+               "order": "100",
+               "force_read_only": "yes",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Time"
+            },
+            {
+               "column_id": 29,
+               "type": "checkbox",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "no",
+               "hide_from_group_display": "yes",
+               "config": {
+                  "display": "right"
+               },
+               "varname": "email2_national_office",
+               "label": "Receive emails from National Office?",
+               "value": "no",
+               "is_core": "yes",
+               "order": "105",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Receive emails from National Office?"
+            },
+            {
+               "column_id": 62,
+               "type": "last_updated",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "nationaloffice_lastupdated",
+               "label": "Last Updated",
+               "value": "",
+               "is_core": "no",
+               "order": "106",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Last Updated"
+            },
+            {
+               "column_id": 63,
+               "type": "last_updated_by_name",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "nationaloffice_lastupdatedby",
+               "label": "Last Updated By",
+               "value": "",
+               "is_core": "no",
+               "order": "107",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Last Updated By"
+            },
+            {
+               "column_id": 64,
+               "type": "last_updated_by_id",
+               "required": "no",
+               "display_in_advanced_view": "yes",
+               "display_if_empty": "yes",
+               "hide_from_group_display": "no",
+               "config": [],
+               "varname": "nationaloffice_lastupdatedbyid",
+               "label": "Last Updated By (Member ID)",
+               "value": "",
+               "is_core": "no",
+               "order": "108",
+               "force_read_only": "no",
+               "special_permissions": "no",
+               "permissions": [],
+               "orig_label": "Last Updated By (Member ID)"
+            }
+         ]
+      }
+    ],
+    "meta": {
+      "group_name": "Pretty Cool Scout Group",
+      "section_name": "Scouts"
+    }
+    }  
 
 ## Group Dashboard [/ext/dashboard/]
 
 ### Send Email Across Group [POST /ext/dashboard/?action=sendGroupEmail]
 
 + Parameters
-    + from (email) - valid email address which is set as the 'reply to' of the email sent by OSM
-    + subject (string) - Subject of email
-    + body (HTML) - body of the email
-    + sections (int) - JSON array of sectionIDs to send the email to
+    + from (required, email) - valid email address which is set as the 'reply to' of the email sent by OSM
+    + subject (reqired, string) - Subject of email
+    + body (reqired, HTML) - body of the email
+    + sections (reqired, int) - JSON array of sectionIDs to send the email to
 
 + Request (application/x-www-form-urlencoded)
     
@@ -275,5 +708,3 @@ Used to get a list of terms that you have access to.
         subject={subject}&
         body={body}&
         emails={sections}
-        
-+ Response
